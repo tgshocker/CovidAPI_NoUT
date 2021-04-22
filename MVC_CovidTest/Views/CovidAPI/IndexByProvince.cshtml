@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "IndexByProvince";
+}
+
+<select onchange="metodo(this)">
+    @foreach (var value in ViewBag.regions)
+    {
+        if (ViewBag.iso == value.iso)
+        {
+            <option selected="selected" value="@value.iso">@value.name</option>
+        }
+        else
+        {
+        <option value="@value.iso">@value.name</option>
+        }
+    }
+</select>
+
+<table class="table">
+    <tr>
+        <th>Province</th>
+        <th>Cases</th>
+        <th>Deaths</th>
+    </tr>
+
+    @foreach (var item in ViewBag.reports)
+    {
+        <tr>
+            <td>
+                @item.region.province
+            </td>
+            <td>
+                @item.confirmed
+            </td>
+            <td>
+                @item.deaths
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    function metodo(object) {
+        let texto = object.value
+
+        location.href = "/CovidAPI/IndexByProvince/" + texto;
+    }
+</script>
+

@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@*@Html.DropDownList("Regions", new SelectList(ViewBag.regions, "iso", "name"), new { @id = "idIso" })
+<button onclick="metodo()" value="Submit"></button>*@
+
+<select onchange="metodo(this)">
+    @foreach (var value in ViewBag.regions) { 
+    <option value="@value.iso">@value.name</option>
+    }
+</select>
+
+<table class="table">
+    <tr>
+        <th>Region</th>
+        <th>Cases</th>
+        <th>Deaths</th>
+    </tr>
+
+@foreach (var item in ViewBag.reports) {
+    <tr>
+        <td>
+            @item.region.iso
+        </td>
+        <td>
+            @item.confirmed
+        </td>
+        <td>
+            @item.deaths
+        </td></tr>
+}
+
+</table>
+
+<script>
+    function metodo(object) {
+        let texto = object.value
+        
+        location.href = "/CovidAPI/IndexByProvince/" + texto;
+    }
+</script>
